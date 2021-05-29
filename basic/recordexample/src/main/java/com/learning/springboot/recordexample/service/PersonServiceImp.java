@@ -8,7 +8,7 @@ import com.learning.springboot.recordexample.model.Person;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PersonService implements IService<Person> {
+public class PersonServiceImp implements IService<Person> {
 
     @Override
     public List<Person> getAllItemObject() {
