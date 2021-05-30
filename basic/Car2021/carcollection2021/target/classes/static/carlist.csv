@@ -1,0 +1,10 @@
+id,name,manufacturer,price,photoUri
+1,Triton4x4 Premium,Mitsubishi,869,/images/triton.jpg
+2,Ranger,Ford,1205,/images/fordranger.jpg
+3,Camry,Toyota,1305,/images/camry.jpg
+4,Fadil,Vinfast,369,/images/fadil.jpg
+5,Morning,Kia,385,/images/kia_morning.jpg
+6,CR-V,Honda,1215,/images/hondacrv.jpg
+7,Elantra,Huyndai,869,/images/elantra.jpg
+8,Santafe,Huyndai,1385,/images/santafe.jpg
+9,Vios,Toyota,615,/images/vios.jpg
