@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <h1 th:text="${app_name}">Kim Dong Book Store</h1>
+        </div>
+        <ul>
+            <li>
+                <a th:href="@{/book1}">Book list using String array</a>
+            </li>
+            <li>
+                <a th:href="@{/book2}">Book list using Book array</a>
+            </li>
+            <li>
+                <a th:href="@{/book3}">Book list have image</a>
+            </li>
+
+            <li>
+                <a th:href="@{/book4}">Book list have image and apply CSS</a>
+            </li>
+
+            <li>
+                <a th:href="@{/book5}">Show Book with odd position id by thymleaf handle </a>
+            </li>
+        </ul>
+    </div>
+</body>
+
+</html>
