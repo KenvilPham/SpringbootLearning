@@ -2,9 +2,10 @@ package com.learn.springboot.demobean.controller;
 
 import com.learn.springboot.demobean.bean.Car;
 import com.learn.springboot.demobean.bean.FunRepository;
+import com.learn.springboot.demobean.bean.StreetMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +17,6 @@ public class HomeController {
     private Car myCar;
 
     @Autowired
- //   @Qualifier("funrepoengine")
     private FunRepository funRepository;
 
     @ResponseBody
@@ -25,10 +25,10 @@ public class HomeController {
         return myCar.toString();
     }
 
-    // @ResponseBody
-    // @GetMapping(value = "/funrepo", produces = MediaType.TEXT_HTML_VALUE)
-    // public String getFunRepo() {
-    //     return myCar.toString();
-    // }
+    @ResponseBody
+    @GetMapping(value = "/streetroute", produces = MediaType.TEXT_HTML_VALUE)
+    public String getStreetRoute() {
+        return myCar.navigation();
+    }
 
 }
