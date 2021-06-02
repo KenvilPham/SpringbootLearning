@@ -97,6 +97,7 @@ public class BookApiController {
     //     }
     // }
 
+    @Operation(hidden = true)
     @DeleteMapping(path = "/{bookId}")
     public ResponseEntity<Void> deleteBookById(@PathVariable long bookId) {
         try {
