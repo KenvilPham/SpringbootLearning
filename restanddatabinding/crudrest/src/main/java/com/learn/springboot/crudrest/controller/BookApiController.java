@@ -22,20 +22,27 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+
 @RestController
-@RequestMapping("/book-api")
+@RequestMapping("/api/books")
 public class BookApiController {
-    
+
     @Autowired
     private IBookService service;
 
-    @GetMapping(value = "/allbooks")
+    @Operation(summary = "Get all books")
+    @GetMapping(value = "/")
     public ResponseEntity<List<Book>> findAllBook() {
         return ResponseEntity.ok(service.findAll());
     }
 
-    @GetMapping("/books/{bookId}")
-    public ResponseEntity<Book> findBookById(@PathVariable long bookId) {
+    @Operation(summary = "Get book by Id")
+    @GetMapping("/{bookId}")
+    public ResponseEntity<Book> findBookById(
+            @Parameter(description = "id of book to be searched") @PathVariable long bookId) {
         if (service.findById(bookId).isPresent()) {
             return ResponseEntity.ok(service.findById(bookId).get());
         } else {
@@ -43,59 +50,60 @@ public class BookApiController {
         }
     }
 
-
-    @PostMapping("/books")
-    public ResponseEntity<Book> addBook(@RequestBody BookPOJO bookPOJO) {
+    @Operation(summary = "Create a new book")
+    @PostMapping("/")
+    public ResponseEntity<Book> addBook(@Parameter(description = "Book to be create") @RequestBody BookPOJO bookPOJO) {
         Book newBook = service.save(bookPOJO);
         try {
             return ResponseEntity.created(new URI("/book-api/books/" + newBook.getId())).body(newBook);
         } catch (URISyntaxException e) {
-            //TODO: handle exception
+            // TODO: handle exception
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
 
-    @PutMapping("/books/{bookId}")
+    @Operation(summary = "Update info of book by Id", parameters = {
+            @Parameter(name = "bookId", in = ParameterIn.QUERY, required = true, description = "Id of a book") })
+    @PutMapping("/{bookId}")
     public ResponseEntity<Void> updateBook(@RequestBody BookPOJO bookPOJO, @PathVariable long bookId) {
         try {
             service.update(bookId, bookPOJO);
             return ResponseEntity.ok().build();
         } catch (ResourceNotFoundException e) {
-            //TODO: handle exception
+            // TODO: handle exception
             return ResponseEntity.notFound().build();
         }
     }
 
-
-    @PatchMapping("/books/{bookId}")
+    @PatchMapping("/{bookId}")
     public ResponseEntity<Void> updateBookTitle(@RequestBody String title, @PathVariable long bookId) {
         try {
             service.updateTitle(bookId, title);
             return ResponseEntity.ok().build();
         } catch (ResourceNotFoundException e) {
-            //TODO: handle exception
+            // TODO: handle exception
             return ResponseEntity.notFound().build();
         }
     }
 
-    @PatchMapping("/bookss/{bookId}")
-    public ResponseEntity<Void> updateBookAuthor(@RequestBody String author, @PathVariable long bookId) {
-        try {
-            service.updateAthor(bookId, author);
-            return ResponseEntity.ok().build();
-        } catch (ResourceNotFoundException e) {
-            //TODO: handle exception
-            return ResponseEntity.notFound().build();
-        }
-    }
+    // @PatchMapping("/bookss/{bookId}")
+    // public ResponseEntity<Void> updateBookAuthor(@RequestBody String author, @PathVariable long bookId) {
+    //     try {
+    //         service.updateAthor(bookId, author);
+    //         return ResponseEntity.ok().build();
+    //     } catch (ResourceNotFoundException e) {
+    //         // TODO: handle exception
+    //         return ResponseEntity.notFound().build();
+    //     }
+    // }
 
-    @DeleteMapping(path = "/books/{bookId}")
+    @DeleteMapping(path = "/{bookId}")
     public ResponseEntity<Void> deleteBookById(@PathVariable long bookId) {
         try {
             service.deleteById(bookId);
             return ResponseEntity.ok().build();
         } catch (ResourceNotFoundException e) {
-            //TODO: handle exception
+            // TODO: handle exception
             return ResponseEntity.notFound().build();
         }
     }
