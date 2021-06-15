@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
@@ -39,6 +40,7 @@ public class Employee {
 
     @Column(name = "phone", nullable = true)
     @Size(max = 10)
+    @Pattern(regexp = "[0-9]")
     private String phoneNumber;
 
     public Employee(String firstName, String lastName, String emailId, String phone) {

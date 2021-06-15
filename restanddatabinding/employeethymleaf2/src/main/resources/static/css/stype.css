@@ -14,8 +14,3 @@ body {
 .table th, td {
    text-align: center;   
 }
-
-.field-error {
-	border-color: #FF0000;
-	margin-bottom: 10px;	
-}
