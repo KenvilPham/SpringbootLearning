@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout :: head">
+</head>
+
+<body>
+    <nav th:replace="layout :: header"></nav>
+    <div class="container" id="main-content">
+        <div class="row">
+            <div class="col-6 no-padding">
+                <form class="form-inline" action="#" th:action="@{/employee/search}" method="GET">
+                    <input type="search" class="form-control mr-sm-2" name="term" placeholder="Search by email...">
+                    <button class="btn btn-primary" type="submit">
+                        <i class="fa fa-search"></i>   Search
+                    </button>
+                </form>
+            </div>
+            <div class="col-6 no-padding">
+                <a href="#" class="btn btn-success float-right" th:href="@{/employee/add}">
+                    <i class="fa fa-plus-square"></i>   New Employee
+                </a>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+                <span th:text="${successMessage}"></span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <th:block th:if="${#lists.isEmpty(employees)}">
+                <h5>No Employee</h5>
+            </th:block>
+
+            <th:block th:unless="${#lists.isEmpty(employees)}">
+                <div class="table-responsive">
+                    <h5>List of employees</h5>
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="emp, iterStat : ${employees}">
+                                <th scope="row" th:text="${iterStat.count}"></th>
+                                <td th:text="${emp.firstName}"></td>
+                                <td th:text="${emp.lastName}"></td>
+                                <td th:text="${emp.emailId}"></td>
+                                <td th:text="${emp.phoneNumber}"></td>
+                                <td>
+                                    <a href="#" class="mr-sm-2 text-primary" th:href="@{/employee/{id}/edit(id=${emp.id})}">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="#" class="text-danger" th:href="@{/employee/{id}/delete(id=${emp.id})}">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </th:block>
+        </div>
+    </div>
+
+    <footer th:replace="layout :: footer"></footer>
+</body>
+
+</html>

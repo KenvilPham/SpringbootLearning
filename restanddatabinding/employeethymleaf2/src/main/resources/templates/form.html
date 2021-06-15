@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head">
+    
+</head>
+<body>
+    <nav th:replace="layout :: header"></nav>
+    <div class="container" id="main-container">
+        <div class="row d-flex justify-content-center">
+            <form style="min-width: 300px;" action="#" th:action="@{/employee/save}" th:object="${employee}" method="POST" novalidate="novalidate">
+                <h5 class="text-center">Employee form</h5>
+                <input type="hidden" th:field="*{id}" />
+
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Employee first name" th:field="*{firstName}" th:errorclass="field-error">
+                    <em th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" style="color: red;"></em>
+                </div>
+
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Employee last name" th:field="*{lastName}" th:errorclass="field-error">
+                    <em th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" style="color: red;"></em>
+                </div>
+
+                <div class="form-group">
+                    <input type="email" class="form-control" placeholder="Employee email" th:field="*{emailId}" th:errorclass="field-error">
+                    <em th:if="${#fields.hasErrors('emailId')}" th:errors="*{emailId}" style="color: red;"></em>
+                </div>
+
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Phone number" th:field="*{phoneNumber}">
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-block btn-primary">
+                        <i class="fa fa-save"></i>  Save
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <footer th:replace="layout :: footer"></footer>
+</body>
+</html>
