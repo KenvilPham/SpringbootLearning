@@ -2,6 +2,7 @@ package com.learn.springboot.employeethymleaf.controller;
 
 import javax.validation.Valid;
 
+import com.learn.springboot.employeethymleaf.exception.ResourceNotFoundException;
 import com.learn.springboot.employeethymleaf.model.Employee;
 import com.learn.springboot.employeethymleaf.service.EmployeeServiceImp;
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -58,9 +60,9 @@ public class EmployeeController {
     }
 
     @GetMapping("/employee/{id}/edit")
-    public String editEmpInfo(@PathVariable Integer id, Model model) {
+    public String editEmpInfo(@PathVariable Integer id, Model model, RedirectAttributes redirect) {
         model.addAttribute("employee", serviceImp.findById(id));
-                return "form";
+        return "form";
     }
 
     @GetMapping("/employee/{id}/delete")
