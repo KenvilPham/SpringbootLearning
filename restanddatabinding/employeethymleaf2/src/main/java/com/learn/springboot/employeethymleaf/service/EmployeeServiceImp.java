@@ -37,7 +37,8 @@ public class EmployeeServiceImp implements IEmployeeService{
 
     @Override
     public void delete(Integer id) {
-        repository.deleteById(id);
+        Employee currentEmployee = this.findById(id);
+        repository.delete(currentEmployee);
         
     }
     
