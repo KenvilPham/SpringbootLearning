@@ -35,11 +35,11 @@ public class MoneyController {
   }
   
   @PostMapping("/money")
-  public String getResultForm(MoneyConvertRequest request, BindingResult result, Model model) {
+  public String getResultForm(@ModelAttribute MoneyConvertRequest request, BindingResult result, Model model) {
     if (!result.hasErrors()) {
       MoneyConverterResponse response = moneyConverter.getConvertResponse(request);
       model.addAttribute("convertResultss", response);
     }
-    return "convert";
+    return "form";
   }
 }
